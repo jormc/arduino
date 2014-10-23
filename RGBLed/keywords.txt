@@ -1,0 +1,5 @@
+RGBLed			KEYWORD1
+switchRed		KEYWORD2
+switchGreen		KEYWORD2
+switchBlue		KEYWORD2
+switchColor 	KEYWORD2
