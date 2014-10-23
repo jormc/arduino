@@ -1,9 +1,9 @@
 /*
  * RGB Led Library
  *
- * A basic library for RGB Led control. You can use it for switch the led colors
- * beetween Red, Green and Blue, o a conjuntion of them, passing the RGB color in
- * numeric mode. You must use values beetween 0 and 255 for each color.
+ * Language Library to handle basic Arduino RGB LEDs easily.
+ * Sets the LED and switch pins in basic colors , or even apply
+ * a mapping RGB values ​​from 0 to 255 for each of the 3 components.
  */
 #ifndef _RGBLed_H_
 #define _RGBLed_H_
