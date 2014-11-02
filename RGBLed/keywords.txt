@@ -1,5 +1,28 @@
-RGBLed			KEYWORD1
-switchRed		KEYWORD2
-switchGreen		KEYWORD2
-switchBlue		KEYWORD2
-switchColor 	KEYWORD2
+#######################################
+# RGB Led Library Keywords
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+ColorValues			KEYWORD1
+colorValues			KEYWORD1
+LedPins				KEYWORD1
+ledPins				KEYWORD1
+isCommonAnode		KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+RGBLed				KEYWORD2
+setColor			KEYWORD2
+switchRedLed		KEYWORD2
+switchGreenLed		KEYWORD2
+switchBlueLed		KEYWORD2
+
+######################################
+# Constants (LITERAL1)
+#######################################
+RED_LED_PIN			LITERAL1
+GREEN_LED_PIN		LITERAL1
+BLUE_LED_PIN		LITERAL1

@@ -1,71 +1,61 @@
+/*	RGBLed.cpp - RGB Led Library - 2014 jormc.es
+ *
+ * 	This library is free software; you can redistribute it and/or
+ * 	modify it under the terms of the GNU Lesser General Public
+ * 	License as published by the Free Software Foundation; either
+ * 	version 2.1 of the License, or (at your option) any later version.
+ *
+ * 	See file LICENSE.txt for further informations on licensing terms.
+ */
 #include "RGBLed.h"
 
-/*
- * Init RGBLed with the analogue pins for an annode-common rgb led type
- */
-RGBLed::RGBLed(uint8_t redPin, uint8_t greenPin, uint8_t bluePin) {
-	new RGBLed(redPin, greenPin, bluePin, false);
+// RGBLed default constructor, for a common anode led
+// and led pins are represented by the default values (see LedPins struct)
+RGBLed::RGBLed () {
+	isCommonAnode = true;
+	ledPins = {RED_LED_PIN, GREEN_LED_PIN, BLUE_LED_PIN};
 }
 
-/*
- * Init RGBLed with the analogue pins for an annode-common or
- * cathode-common rgb led type. You must decide it with the commonCathode boolean param
- */
-RGBLed::RGBLed(uint8_t redPin, uint8_t greenPin, uint8_t bluePin, bool commonCathode) {
-	ledPins = {
-		redPin,		// Output pin for Red Led
-		greenPin,	// Output pin for Green Led
-		bluePin		// Output pin for Blue Led
-	};
-
-	ledValues = {
-		0,	// 0 value for Red tone
-		0, 	// 0 value for Green tone
-		0	// 0 value for Blue tone
-	};
-
-	isCommonCathode = commonCathode;
+// RGBLed constructor, where you can choose if the led is common anode
+// and led pins are represented by the default values (see LedPins struct)
+RGBLed::RGBLed (bool commonAnode) {
+	isCommonAnode = commonAnode;
+	ledPins = {RED_LED_PIN, GREEN_LED_PIN, BLUE_LED_PIN};
 }
 
-/**
- * Switch the LED to an specific color, determinater by three
- * RGB values, all them beetween 0 and 255.
- */
-void RGBLed::switchColor(uint8_t redValue, uint8_t greenValue, uint8_t blueValue){
-	ledValues = {
-		redValue,
-		greenValue,
-		blueValue
-	};
+// RGBLed constructor, where you must determine the led pins
+// and decide if it is a common anode led by the boolean parameter
+RGBLed::RGBLed (byte redPin, byte greenPin, byte bluePin, bool commonAnode) {
+	isCommonAnode = commonAnode;
+	ledPins = {redPin, greenPin, bluePin};
+}
 
-	if (isCommonCathode) {
-		analogWrite(ledPins.redPin, 	ledValues.redValue);
-		analogWrite(ledPins.greenPin, 	ledValues.greenValue);
-		analogWrite(ledPins.bluePin, 	ledValues.blueValue);
-	} else {
-		analogWrite(ledPins.redPin, 	255 - ledValues.redValue);
-		analogWrite(ledPins.greenPin, 	255 - ledValues.greenValue);
-		analogWrite(ledPins.bluePin, 	255 - ledValues.blueValue);
+// Switch to a color represented by a R, G, B byte group values (0 - 255)
+void RGBLed::setColor(byte red, byte green, byte blue) {
+	colorValues = {red, green, blue};
+
+	if (isCommonAnode) {
+		red = 255 - red;
+		green = 255 - green;
+		blue = 255 - blue;
 	}
+
+	analogWrite(ledPins.redPin, red);
+	analogWrite(ledPins.greenPin, green);
+	analogWrite(ledPins.bluePin, blue);
 }
 
-/*
- * Switch led to the Red color
- */
-void RGBLed::switchRed() {
-	switchColor(255, 0, 0);
+// Switch to Red pure color
+void RGBLed::switchRedLed() {
+	setColor(255, 0, 0);
 }
 
-/*
- * Switch led to the Green color
- */
-void RGBLed::switchGreen() {
-	switchColor(0, 255, 0);
+// Switch to Green pure color
+void RGBLed::switchGreenLed() {
+	setColor(0, 255, 0);
 }
 
-/*
- * Switch led to the Blue color
- */
-void RGBLed::switchBlue() {
-	switchColor(0, 0, 255);
+// Switch to Blue pure color
+void RGBLed::switchBlueLed() {
+	setColor(0, 0, 255);
 }

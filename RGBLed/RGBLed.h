@@ -1,9 +1,11 @@
-/*
- * RGB Led Library
+/*	RGBLed.h - RGB Led Library - 2014 jormc.es
  *
- * Language Library to handle basic Arduino RGB LEDs easily.
- * Sets the LED and switch pins in basic colors , or even apply
- * a mapping RGB values ​​from 0 to 255 for each of the 3 components.
+ * 	This library is free software; you can redistribute it and/or
+ * 	modify it under the terms of the GNU Lesser General Public
+ * 	License as published by the Free Software Foundation; either
+ * 	version 2.1 of the License, or (at your option) any later version.
+ *
+ * 	See file LICENSE.txt for further informations on licensing terms.
  */
 #ifndef _RGBLed_H_
 #define _RGBLed_H_
@@ -12,33 +14,35 @@
 
 class RGBLed {
 
-private:
-	struct LedPins {
-		uint8_t redPin;
-		uint8_t greenPin;
-		uint8_t bluePin;
-	};
+	public:
+		#define RED_LED_PIN				9
+		#define GREEN_LED_PIN			10
+		#define BLUE_LED_PIN			11
 
-	struct LedValues {
-		uint8_t redValue;
-		uint8_t greenValue;
-		uint8_t blueValue;
-	};
+		RGBLed ();
+		RGBLed (bool commonAnnode);
+		RGBLed (byte redPin, byte greenPin, byte bluePin, bool commonAnode);
+		void setColor(byte red, byte green, byte blue);
+		void switchRedLed();
+		void switchGreenLed();
+		void switchBlueLed();
 
-	bool isCommonCathode;
-	LedPins ledPins;
-	LedValues ledValues;
+	private:
+		typedef struct {
+			byte redValue;
+			byte greenValue;
+			byte blueValue;
+		} ColorValues;
 
-public:
-	RGBLed(uint8_t redPin, uint8_t greenPin, uint8_t bluePin);
-	RGBLed(uint8_t redPin, uint8_t greenPin, uint8_t bluePin, bool commonCathode);
+		typedef struct {
+			byte redPin;
+			byte greenPin;
+			byte bluePin;
+		} LedPins;
 
-	void switchRed();
-	void switchGreen();
-	void switchBlue();
-	void switchColor(uint8_t redValue, uint8_t greenValue, uint8_t blueValue);
-
-protected:
+		ColorValues colorValues;
+		LedPins ledPins;
+		bool isCommonAnode;
 
 };
 
